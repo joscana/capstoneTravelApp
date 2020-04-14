@@ -26,6 +26,10 @@ const server = app.listen(port, listening);
     console.log(`running on localhost: ${port}`);
   };
 
+/*Home route uses the index file from dist*/
+app.get('/', function (req, res) {
+  res.sendFile('dist/index.html')
+})
 
 // GET route
 app.get('/get', sendData);
