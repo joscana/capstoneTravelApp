@@ -1,13 +1,5 @@
 /*Global Variables*/
-const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = '&APPID=419ade04141ebb7f1f6deeb95aba3892';
-const countryCode = ',us';
-const fahrenheit = '&units=imperial';
-
-//Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+1+'.'+d.getDate()+'.'+d.getFullYear();
-
+const geonamesBaseURL = '';
 
 document.getElementById('generate').addEventListener('click', performAction);
 
