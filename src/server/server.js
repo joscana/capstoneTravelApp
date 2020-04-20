@@ -3,7 +3,7 @@ dotenv.config();
 const path = require('path')
 
 /* Empty JS object to act as endpoint for all routes */
-const projectData = {};
+const projectData = [];
 
 /* Express to run server and routes */
 const express = require('express');
