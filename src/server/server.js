@@ -35,12 +35,38 @@ app.get('/', function (req, res) {
   res.sendFile('dist/index.html')
 })
 
-// GET route
-app.get('/get', sendData);
 
-function sendData (request, response) {
-  console.log("sendData called")
-  response.send(projectData);
+/*Global Variables*/
+const geonamesBaseURL = 'http://api.geonames.org/postalCodeSearchJSON?maxRows=1&username=joscana';
+const weatherbitBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?postal_code=';
+
+
+// GET route
+app.get('/get', getWeather);
+
+function getWeather (request, response) {
+  const city = request.query.city;
+  console.log(`City: ${city}`);
+
+
+  const url = `${geonamesBaseURL}&placename=${city}`;
+  const encodedUrl = encodeURI(url);
+  getData(encodedUrl)
+  .then(
+      function(geoResponse) {
+          const geonamesPostalCode = geoResponse.postalCodes[0].postalCode;
+          console.log(geoResponse);
+          console.log(geonamesPostalCode);
+
+
+          const weatherbitURL = `${weatherbitBaseURL}${geonamesPostalCode}&key=${process.env.WEATHERBIT_API_KEY}`;
+          console.log(weatherbitURL)
+          return getData(weatherbitURL)
+
+      //     const feelings = document.getElementById('feelings').value;
+      //     return postData('/addForecast', {temperature: weather.main.temp, date: newDate, user_response: feelings})
+      }
+  )
 };
 
 
@@ -55,3 +81,15 @@ function addForecast (request, response){
     const jsonData = JSON.parse('{"response": "POST received"}');
     response.send(jsonData);
 }
+
+const getData = async (url = '')=>{
+  const response = await fetch(url);
+
+  try {
+      const newData = await response.json();
+      console.log(newData);
+      return newData;
+  }catch(error) {
+      console.log("error", error);
+  }
+};
