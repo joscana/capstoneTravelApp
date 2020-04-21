@@ -1,5 +1,6 @@
 /*Global Variables*/
 const geonamesBaseURL = 'http://api.geonames.org/postalCodeSearchJSON?maxRows=1&username=joscana';
+const weatherbitBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?postal_code=';
 
 
 //document.getElementById('generate').addEventListener('click', performAction);
@@ -9,12 +10,17 @@ function performAction(e){
     const city = document.getElementById('city').value;
     const url = `${geonamesBaseURL}&placename=${city}`;
     const encodedUrl = encodeURI(url);
-    console.log(encodedUrl);
     getData(encodedUrl)
     .then(
         function(geoResponse) {
+            const geonamesPostalCode = geoResponse.postalCodes[0].postalCode;
             console.log(geoResponse);
-            console.log(geoResponse.postalCodes[0].postalCode);
+            console.log(geonamesPostalCode);
+
+
+            const weatherbitURL = `${weatherbitBaseURL}${geonamesPostalCode}&key=${process.env.WEATHERBIT_API_KEY}`;
+            console.log(weatherbitURL)
+            return getData(weatherbitURL)
 
         //     const feelings = document.getElementById('feelings').value;
         //     return postData('/addForecast', {temperature: weather.main.temp, date: newDate, user_response: feelings})
@@ -67,5 +73,6 @@ const getData = async (url = '')=>{
         console.log("error", error);
     }
 };
+
 
 export { performAction }
