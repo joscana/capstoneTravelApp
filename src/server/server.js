@@ -14,6 +14,8 @@ const app = express();
 /* Dependencies */
 const bodyParser = require('body-parser')
 
+const fetch = require('node-fetch');
+
 /* Middleware*/
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

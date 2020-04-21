@@ -1,10 +1,13 @@
 body{
     background: #fffff8;
-    background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
+    background-image: linear-gradient(90deg, #c94f7c 0%, #ff80ab 35%, #ffb2dd 100%);
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 #app{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     color: #fffff8;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
