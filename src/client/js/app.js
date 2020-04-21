@@ -14,6 +14,7 @@ function performAction(e){
     .then(
         function(geoResponse) {
             console.log(geoResponse);
+            console.log(geoResponse.postalCodes[0].postalCode);
 
         //     const feelings = document.getElementById('feelings').value;
         //     return postData('/addForecast', {temperature: weather.main.temp, date: newDate, user_response: feelings})
