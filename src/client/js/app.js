@@ -10,7 +10,7 @@ function performAction(e){
     .then(
         function(geoResponse) {
             // const geonamesPostalCode = geoResponse.postalCodes[0].postalCode;
-            // console.log(geoResponse);
+            console.log(geoResponse);
             // console.log(geonamesPostalCode);
 
 

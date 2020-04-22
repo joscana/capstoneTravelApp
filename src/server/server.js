@@ -40,7 +40,7 @@ app.get('/', function (req, res) {
 
 /*Global Variables*/
 const geonamesBaseURL = 'http://api.geonames.org/postalCodeSearchJSON?maxRows=1&username=joscana';
-const weatherbitBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?postal_code=';
+const weatherbitBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
 
 
 // GET route
@@ -56,19 +56,31 @@ function getWeather (request, response) {
   getData(encodedUrl)
   .then(
       function(geoResponse) {
-          const geonamesPostalCode = geoResponse.postalCodes[0].postalCode;
-          console.log(geoResponse);
-          console.log(geonamesPostalCode);
+          const longitude = geoResponse.postalCodes[0].lng;
+          const latitude = geoResponse.postalCodes[0].lat;
+          console.log(`Latitude = ${latitude} Longitude = ${longitude}`)
+          // console.log(geoResponse);
+          // console.log(geonamesPostalCode);
 
-
-          const weatherbitURL = `${weatherbitBaseURL}${geonamesPostalCode}&key=${process.env.WEATHERBIT_API_KEY}`;
+          const weatherbitURL = `${weatherbitBaseURL}lat=${latitude}&lon=${longitude}&key=${process.env.WEATHERBIT_API_KEY}`;
           console.log(weatherbitURL)
           return getData(weatherbitURL)
-
-      //     const feelings = document.getElementById('feelings').value;
-      //     return postData('/addForecast', {temperature: weather.main.temp, date: newDate, user_response: feelings})
       }
   )
+  .then(
+    function(weatherbitResponse) {
+      //console.log(weatherbitResponse);
+        // const geonamesPostalCode = geoResponse.postalCodes[0].postalCode;
+        // console.log(geoResponse);
+        // console.log(geonamesPostalCode);
+
+        // const weatherbitURL = `${weatherbitBaseURL}${geonamesPostalCode}&key=${process.env.WEATHERBIT_API_KEY}`;
+        // console.log(weatherbitURL)
+        // return getData(weatherbitURL)
+
+      response.send(weatherbitResponse)
+    }
+)
 };
 
 
@@ -89,7 +101,6 @@ const getData = async (url = '')=>{
 
   try {
       const newData = await response.json();
-      console.log(newData);
       return newData;
   }catch(error) {
       console.log("error", error);
