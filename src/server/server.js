@@ -3,7 +3,7 @@ dotenv.config();
 const path = require('path')
 
 /* Empty JS object to act as endpoint for all routes */
-const projectData = [];
+const projectData = {};
 
 /* Express to run server and routes */
 const express = require('express');
@@ -74,23 +74,29 @@ function getWeather (request, response) {
       const countryCode = weatherbitResponse.country_code;
       const forecastDate = weatherbitResponse.data[0].datetime;
       console.log(`Date = ${forecastDate} High Temp = ${highTemp} Low Temp = ${lowTemp} Location = ${cityName}, ${stateCode} ${countryCode}`)
-      response.send(weatherbitResponse)
+      projectData.highTemp = highTemp;
+      projectData.lowTemp = lowTemp;
+      projectData.cityName = cityName;
+      projectData.stateCode = stateCode;
+      projectData.countryCode = countryCode;
+      projectData.forecastDate = forecastDate;
+      response.send(projectData)
     }
 )
 };
 
 
-app.post('/addForecast', addForecast);
+// app.post('/addForecast', addForecast);
 
-function addForecast (request, response){
-    const body = request.body;
-    projectData.temperature = body.temperature;
-    projectData.date = body.date;
-    projectData.user_response = body.user_response;
-    console.log(projectData);
-    const jsonData = JSON.parse('{"response": "POST received"}');
-    response.send(jsonData);
-}
+// function addForecast (request, response){
+//     const body = request.body;
+//     projectData.temperature = body.temperature;
+//     projectData.date = body.date;
+//     projectData.user_response = body.user_response;
+//     console.log(projectData);
+//     const jsonData = JSON.parse('{"response": "POST received"}');
+//     response.send(jsonData);
+// }
 
 const getData = async (url = '')=>{
   const response = await fetch(url);
