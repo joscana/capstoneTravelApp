@@ -59,8 +59,6 @@ function getWeather (request, response) {
           const longitude = geoResponse.postalCodes[0].lng;
           const latitude = geoResponse.postalCodes[0].lat;
           console.log(`Latitude = ${latitude} Longitude = ${longitude}`)
-          // console.log(geoResponse);
-          // console.log(geonamesPostalCode);
 
           const weatherbitURL = `${weatherbitBaseURL}lat=${latitude}&lon=${longitude}&key=${process.env.WEATHERBIT_API_KEY}`;
           console.log(weatherbitURL)
@@ -69,15 +67,13 @@ function getWeather (request, response) {
   )
   .then(
     function(weatherbitResponse) {
-      //console.log(weatherbitResponse);
-        // const geonamesPostalCode = geoResponse.postalCodes[0].postalCode;
-        // console.log(geoResponse);
-        // console.log(geonamesPostalCode);
-
-        // const weatherbitURL = `${weatherbitBaseURL}${geonamesPostalCode}&key=${process.env.WEATHERBIT_API_KEY}`;
-        // console.log(weatherbitURL)
-        // return getData(weatherbitURL)
-
+      const highTemp = weatherbitResponse.data[0].high_temp;
+      const lowTemp = weatherbitResponse.data[0].low_temp;
+      const cityName = weatherbitResponse.city_name;
+      const stateCode = weatherbitResponse.state_code;
+      const countryCode = weatherbitResponse.country_code;
+      const forecastDate = weatherbitResponse.data[0].datetime;
+      console.log(`Date = ${forecastDate} High Temp = ${highTemp} Low Temp = ${lowTemp} Location = ${cityName}, ${stateCode} ${countryCode}`)
       response.send(weatherbitResponse)
     }
 )
