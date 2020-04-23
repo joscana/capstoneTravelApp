@@ -2,7 +2,7 @@ function performAction(e){
     const city = document.getElementById('city').value;
     const date = document.getElementById('inputDate').value;
     const daysUntilTrip = daysInFuture(date);
-    const url = `http://localhost:3000/get?city=${city}`
+    const url = `http://localhost:3000/get?city=${city}&daysUntilTrip=${daysUntilTrip}`
     const encodedUrl = encodeURI(url);
     getData(encodedUrl)
     .then(
@@ -21,7 +21,7 @@ function daysInFuture(date) {
     let start = new Date(date);
     let now = new Date();
     let diffMillis = start.getTime() - now.getTime();
-    let diffDays = Math.floor(diffMillis/(1000 * 60 * 60 * 24));
+    let diffDays = Math.ceil(diffMillis/(1000 * 60 * 60 * 24));
     return diffDays;
 }
 
