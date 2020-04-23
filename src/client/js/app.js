@@ -1,5 +1,6 @@
 function performAction(e){
     const city = document.getElementById('city').value;
+    const date = document.getElementById('inputDate').value;
     const url = `http://localhost:3000/get?city=${city}`
     const encodedUrl = encodeURI(url);
     getData(encodedUrl)
@@ -7,7 +8,7 @@ function performAction(e){
         function(response) {
             console.log(response);
             document.getElementById('location').innerHTML = `Location: ${response.cityName}, ${response.stateCode} ${response.countryCode}`;
-            document.getElementById('date').innerHTML = `Date of Departure: ${response.forecastDate}`;
+            document.getElementById('date').innerHTML = `Date of Departure: ${date}`;
             document.getElementById('weather').innerHTML = `Temperature High: ${celsiusToFahrenheit(response.highTemp)} Temperature Low: ${celsiusToFahrenheit(response.lowTemp)}`;
         }
     )
