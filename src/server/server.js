@@ -40,7 +40,7 @@ app.get('/', function (req, res) {
 
 /*Global Variables*/
 const geonamesBaseURL = 'http://api.geonames.org/postalCodeSearchJSON?maxRows=1&username=joscana';
-const weatherbitBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+const weatherbitDailyBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
 
 
 // GET route
@@ -61,21 +61,27 @@ function getWeather (request, response) {
           //const latitude = geoResponse.postalCodes[0].lat;
           const latitude = 26.3683;
           const longitude = -80;
-          console.log(`Latitude = ${latitude} Longitude = ${longitude}`)
-
-          const weatherbitURL = `${weatherbitBaseURL}lat=${latitude}&lon=${longitude}&key=${process.env.WEATHERBIT_API_KEY}`;
+          
+          const weatherbitURL = `${weatherbitDailyBaseURL}lat=${latitude}&lon=${longitude}&key=${process.env.WEATHERBIT_API_KEY}`;
           console.log(weatherbitURL)
           return getData(weatherbitURL)
       }
   )
   .then(
     function(weatherbitResponse) {
-      const highTemp = weatherbitResponse.data[daysUntilTrip].high_temp;
-      const lowTemp = weatherbitResponse.data[daysUntilTrip].low_temp;
+      let index = 0;
+      if (daysUntilTrip >= weatherbitResponse.data.length) {
+        index = weatherbitResponse.data.length - 1;
+      } else {
+        index = daysUntilTrip;
+      }
+
+      const highTemp = weatherbitResponse.data[index].high_temp;
+      const lowTemp = weatherbitResponse.data[index].low_temp;
       const cityName = weatherbitResponse.city_name;
       const stateCode = weatherbitResponse.state_code;
       const countryCode = weatherbitResponse.country_code;
-      const forecastDate = weatherbitResponse.data[daysUntilTrip].datetime;
+      const forecastDate = weatherbitResponse.data[index].datetime;
       console.log(`Date = ${forecastDate} High Temp = ${highTemp} Low Temp = ${lowTemp} Location = ${cityName}, ${stateCode} ${countryCode}`)
       projectData.highTemp = highTemp;
       projectData.lowTemp = lowTemp;
@@ -88,18 +94,6 @@ function getWeather (request, response) {
 )
 };
 
-
-// app.post('/addForecast', addForecast);
-
-// function addForecast (request, response){
-//     const body = request.body;
-//     projectData.temperature = body.temperature;
-//     projectData.date = body.date;
-//     projectData.user_response = body.user_response;
-//     console.log(projectData);
-//     const jsonData = JSON.parse('{"response": "POST received"}');
-//     response.send(jsonData);
-// }
 
 const getData = async (url = '')=>{
   const response = await fetch(url);
