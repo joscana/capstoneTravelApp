@@ -101,7 +101,6 @@ function getWeather (request, response) {
   function(pixabayResponse) {
     projectData.imageURL = pixabayResponse.hits[0].webformatURL;
     response.send(projectData)
-    
   }
 )
 };
