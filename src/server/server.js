@@ -41,6 +41,7 @@ app.get('/', function (req, res) {
 /*Global Variables*/
 const geonamesBaseURL = 'http://api.geonames.org/postalCodeSearchJSON?maxRows=1&username=joscana';
 const weatherbitDailyBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+const pixabayBaseURL = 'https://pixabay.com/api/?'
 
 
 // GET route
@@ -89,8 +90,19 @@ function getWeather (request, response) {
       projectData.stateCode = stateCode;
       projectData.countryCode = countryCode;
       projectData.forecastDate = forecastDate;
-      response.send(projectData)
+      
+      const pixabayURL = encodeURI(`${pixabayBaseURL}key=${process.env.PIXABAY_API_KEY}&q=${city}`);
+      console.log(pixabayURL)
+      return getData(pixabayURL)
+
     }
+)
+.then (
+  function(pixabayResponse) {
+    projectData.imageURL = pixabayResponse.hits[0].imageURL;
+    response.send(projectData)
+    
+  }
 )
 };
 
