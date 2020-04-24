@@ -12,6 +12,11 @@ function performAction(e){
             document.getElementById('date').innerHTML = `Date of Departure: ${date}`;
             document.getElementById('countdown').innerHTML = `Days until Trip: ${daysUntilTrip}`
             document.getElementById('weather').innerHTML = `Temperature High: ${celsiusToFahrenheit(response.highTemp)} Temperature Low: ${celsiusToFahrenheit(response.lowTemp)}`;
+            let image = document.createElement("img");
+            image.src = response.imageURL;
+            image.height = 100;
+            image.width = 100;
+            document.getElementById('picture').appendChild(image);
         }
     )
 }
