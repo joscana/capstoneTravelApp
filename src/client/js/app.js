@@ -61,4 +61,4 @@ const getData = async (url = '')=>{
 };
 
 
-export { performAction }
+export { performAction, daysBetween }
