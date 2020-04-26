@@ -50,9 +50,6 @@ app.get('/get', getWeather);
 function getWeather (request, response) {
   const city = request.query.city;
   const daysUntilTrip = request.query.daysUntilTrip;
-  console.log(daysUntilTrip);
-
-
   const url = `${geonamesBaseURL}&placename=${city}`;
   const encodedUrl = encodeURI(url);
   getData(encodedUrl)
@@ -64,7 +61,6 @@ function getWeather (request, response) {
           const longitude = -80;
           
           const weatherbitURL = `${weatherbitDailyBaseURL}lat=${latitude}&lon=${longitude}&key=${process.env.WEATHERBIT_API_KEY}`;
-          console.log(weatherbitURL)
           return getData(weatherbitURL)
       }
   )
@@ -83,7 +79,6 @@ function getWeather (request, response) {
       const stateCode = weatherbitResponse.state_code;
       const countryCode = weatherbitResponse.country_code;
       const forecastDate = weatherbitResponse.data[index].datetime;
-      console.log(`Date = ${forecastDate} High Temp = ${highTemp} Low Temp = ${lowTemp} Location = ${cityName}, ${stateCode} ${countryCode}`)
       projectData.highTemp = highTemp;
       projectData.lowTemp = lowTemp;
       projectData.cityName = cityName;
@@ -92,7 +87,6 @@ function getWeather (request, response) {
       projectData.forecastDate = forecastDate;
       
       const pixabayURL = encodeURI(`${pixabayBaseURL}key=${process.env.PIXABAY_API_KEY}&q=${city}`);
-      console.log(pixabayURL)
       return getData(pixabayURL)
 
     }
