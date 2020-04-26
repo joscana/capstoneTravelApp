@@ -66,12 +66,7 @@ function getWeather (request, response) {
   )
   .then(
     function(weatherbitResponse) {
-      let index = 0;
-      if (daysUntilTrip >= weatherbitResponse.data.length) {
-        index = weatherbitResponse.data.length - 1;
-      } else {
-        index = daysUntilTrip;
-      }
+      let index = getIndexForDay(daysUntilTrip, weatherbitResponse.data.length);
 
       const highTemp = weatherbitResponse.data[index].high_temp;
       const lowTemp = weatherbitResponse.data[index].low_temp;
@@ -100,6 +95,16 @@ function getWeather (request, response) {
 };
 
 
+function getIndexForDay(daysUntilTrip, dataLength) {
+  if (daysUntilTrip >= dataLength) {
+    return dataLength - 1;
+  } else {
+    return daysUntilTrip;
+  }
+}
+
+
+
 const getData = async (url = '')=>{
   const response = await fetch(url);
 
@@ -110,3 +115,6 @@ const getData = async (url = '')=>{
       console.log("error", error);
   }
 };
+
+
+export { getIndexForDay }
