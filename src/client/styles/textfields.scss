@@ -1,5 +1,13 @@
 .holder{
     border-radius: 25px;
+    color: #000000;
+    padding: 10px;
+    font-family: 'Baloo Tamma 2', cursive;
+}
+
+.questions{
+    font-family: 'Kalam', cursive;
+    color: #000000;
 }
 
 
@@ -13,19 +21,17 @@ input{
     display:block;
     height: 60px;
     width: 320px;
-    background:#c94f7c;
-    color: #fffff8;
+    color: #000000;
+    background: #0081cb;
     font-size: 20px;
-    font-family: 'Oswald', sans-serif;
     border: none;
 }
 
 
 textarea{
-    background: #c94f7c;
-    color: #fffff8;
+    background:#0081cb;
+    color: #000000;
     font-size: 20px;
-    font-family: 'Oswald', sans-serif;
     border-radius: 25px;
 }
 
@@ -38,19 +44,13 @@ button:focus {
 }
 /* Style for Placeholder Text*/
 ::placeholder { /* Firefox, Chrome, Opera */ 
-    color: #fffff8;
-    font-family: 'Oswald', sans-serif;
-
+    color: #000000;
 } 
   
 :-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: #fffff8;
-    font-family: 'Oswald', sans-serif;
-
+    color: #000000;
 } 
   
 ::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: #fffff8;
-    font-family: 'Oswald', sans-serif;
-
+    color: #000000;
 } 
