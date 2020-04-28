@@ -19,7 +19,11 @@ function performAction(e){
             image.src = response.imageURL;
             image.height = 300;
             image.width = 300;
-            document.getElementById('picture').appendChild(image);
+            const pic = document.getElementById('picture');
+            if (pic.children.length > 0) {
+                pic.removeChild(pic.lastChild);
+            }
+            pic.appendChild(image);
         }
     )
 }
@@ -45,7 +49,7 @@ function daysBetween(startDate, endDate) {
 
 function changeFormat(inputDate) {
     const date = new Date(inputDate);
-    let day = date.getDate();
+    let day = date.getDate() + 1;
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     if (day < 10) {
