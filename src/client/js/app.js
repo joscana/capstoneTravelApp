@@ -1,6 +1,7 @@
 function performAction(e){
     const city = document.getElementById('city').value;
-    const startDate = document.getElementById('inputDate').value;
+    let inputDate = document.getElementById('inputDate').value;
+    const startDate = changeFormat(inputDate);
     const endDate = document.getElementById('endDate').value;
     const daysUntilTrip = daysInFuture(startDate);
     const tripLength = daysBetween(startDate, endDate);
@@ -39,6 +40,22 @@ function daysBetween(startDate, endDate) {
     let diffMillis = end.getTime() - start.getTime();
     let diffDays = Math.ceil(diffMillis/(1000 * 60 * 60 * 24));
     return diffDays;
+}
+
+
+function changeFormat(inputDate) {
+    const date = new Date(inputDate);
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    if (month < 10) {
+        month = `0${month}`
+    }
+    const newFormat = `${month}-${day}-${year}`
+    return newFormat
 }
 
 

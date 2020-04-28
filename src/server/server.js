@@ -55,12 +55,12 @@ function getWeather (request, response) {
   getData(encodedUrl)
   .then(
       function(geoResponse) {
-          //const longitude = geoResponse.postalCodes[0].lng;
-          //const latitude = geoResponse.postalCodes[0].lat;
+          const longitude = geoResponse.postalCodes[0].lng;
+          const latitude = geoResponse.postalCodes[0].lat;
           
           //Hard-coded lat & long for testing when Geonames API is unresponsive
-          const latitude = 26.3683;
-          const longitude = -80;
+          //const latitude = 26.3683;
+          //const longitude = -80;
           
           const weatherbitURL = `${weatherbitDailyBaseURL}lat=${latitude}&lon=${longitude}&key=${process.env.WEATHERBIT_API_KEY}`;
           return getData(weatherbitURL)
