@@ -9,7 +9,6 @@ function performAction(e){
     getData(encodedUrl)
     .then(
         function(response) {
-            console.log(response);
             document.getElementById('location').innerHTML = `Location: ${response.cityName}, ${response.stateCode} ${response.countryCode}`;
             document.getElementById('date').innerHTML = `Date of Departure: ${startDate}`;
             document.getElementById('countdown').innerHTML = `Days until Trip: ${daysUntilTrip}`;

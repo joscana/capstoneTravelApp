@@ -2,11 +2,16 @@ import { getIndexForDay } from '../src/server/server'
 
 describe("Function that tells the index for the daily forecast", () => {
     test("It should take daysUntilTrip and dataLength and return the index number of the forecast", () => {
-        const input1 = 6;
-        const input2 = 5;
-        const output = 5;
+        let daysUntilTrip = 6;
+        let dataLength = 5;
+        let output = 4;
+        expect(getIndexForDay(daysUntilTrip, dataLength)).toEqual(output);
 
-        expect(getIndexForDay(input1, input2)).toEqual(output);
+        daysUntilTrip = 3;
+        dataLength = 5;
+        output = 3;
+        expect(getIndexForDay(daysUntilTrip, dataLength)).toEqual(output);
+
     });
 });
 

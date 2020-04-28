@@ -57,6 +57,8 @@ function getWeather (request, response) {
       function(geoResponse) {
           //const longitude = geoResponse.postalCodes[0].lng;
           //const latitude = geoResponse.postalCodes[0].lat;
+          
+          //Hard-coded lat & long for testing when Geonames API is unresponsive
           const latitude = 26.3683;
           const longitude = -80;
           
@@ -117,4 +119,4 @@ const getData = async (url = '')=>{
 };
 
 
-export { getIndexForDay }
+module.exports = { getIndexForDay }
